@@ -1,18 +1,18 @@
-from flask import Blueprint, jsonify
 import requests
+from flask import Blueprint, render_template
 
-main = Blueprint('main', __name__)
+bp = Blueprint('routes', __name__)
 
-@main.route('/')
+@bp.route('/')
 def home():
-    return jsonify({"mensagem": "API de Cotações Rodando com Flask!"})
+    moedas = ["USD-BRL", "EUR-BRL", "BTC-BRL"]
+    resultado = {}
 
-@main.route('/cotacao/<moeda>')
-def cotacao(moeda):
-    try:
-        url = f"https://economia.awesomeapi.com.br/json/last/{moeda}-BRL"
-        resposta = requests.get(url)
-        dados = resposta.json()
-        return jsonify(dados)
-    except Exception as e:
-        return jsonify({"erro": str(e)})
+    for par in moedas:
+        url = f"https://economia.awesomeapi.com.br/json/last/{par}"
+        response = requests.get(url)
+        dados = response.json()
+        key = list(dados.keys())[0]
+        resultado[key] = dados[key]
+
+    return render_template('index.html', resultado=resultado)

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cotações</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .box { background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .box h2 { margin-top: 0; }
+        button { background: #007BFF; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .flex { display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cotações de Moedas</h1>
+        {% for key, cotacao in resultado.items() %}
+        <div class="box">
+            <h2>{{ cotacao['name'] }}</h2>
+            <div class="flex">
+                <span>Compra (bid): {{ cotacao['bid'] }}</span>
+                <span>Venda (ask): {{ cotacao['ask'] }}</span>
+                <span>Variação (%): {{ cotacao['pctChange'] }}</span>
+            </div>
+            <small>Atualizado em: {{ cotacao['create_date'] }}</small>
+        </div>
+        {% endfor %}
+        <button onclick="location.reload()">Atualizar Cotações</button>
+    </div>
+</body>
+</html>

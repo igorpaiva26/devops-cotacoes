@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cotações de Moedas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 20px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            width: 220px;
+            text-align: center;
+        }
+        .box h2 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #007bff;
+        }
+        .price {
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .change {
+            color: green;
+            font-weight: bold;
+        }
+        .change.negative {
+            color: red;
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cotações de Moedas</h1>
+    <div class="container">
+        {% for key, moeda in resultado.items() %}
+        <div class="box">
+            <h2>{{ moeda.name }}</h2>
+            <div class="price">Compra: R$ {{ moeda.bid }}</div>
+            <div class="price">Venda: R$ {{ moeda.ask }}</div>
+            <div class="change {% if moeda.pctChange.startswith('-') %}negative{% endif %}">
+                Variação: {{ moeda.pctChange }}%
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button onclick="location.reload()">Atualizar Cotações</button>
+</body>
+</html>

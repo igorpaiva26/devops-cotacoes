@@ -1,17 +1,21 @@
 #!/bin/bash
 
-CONTAINER_NAME="cotacoes-devops"
-IMAGE_NAME="devops-cotacoes:1.0"
+# Garante que o diretório raiz do projeto seja acessado corretamente
+PROJECT_ROOT="$(dirname "$(readlink -f "$0")")/.."
+cd "$PROJECT_ROOT" || { echo "❌ Erro ao acessar raiz do projeto"; exit 1; }
 
 echo "🔄 Parando e removendo container antigo..."
-docker stop $CONTAINER_NAME 2>/dev/null
-docker rm $CONTAINER_NAME 2>/dev/null
+docker stop cotacoes-devops 2>/dev/null || true
+docker rm cotacoes-devops 2>/dev/null || true
 
 echo "🐳 Construindo nova imagem Docker..."
-docker build -t $IMAGE_NAME .
+docker build -t devops-cotacoes:1.0 .
 
-echo "🚀 Subindo container $CONTAINER_NAME na porta 5000..."
-docker run -d -p 5000:5000 --name $CONTAINER_NAME $IMAGE_NAME
+echo "🚀 Subindo container cotacoes-devops na porta 5000..."
+docker run -d -p 5000:5000 --name cotacoes-devops devops-cotacoes:1.0
 
 echo "✅ Container em execução:"
-docker ps | grep $CONTAINER_NAME
+docker ps | grep cotacoes-devops
+
+echo "🌐 Testando a API em http://localhost:5000 com formatação bonita..."
+curl -s http://localhost:5000 | head -n 20

@@ -1,4 +1,4 @@
-﻿# 💱 DevOps Cotações
+# 💱 DevOps Cotações
 
 Aplicação web desenvolvida em **Python (Flask)** para monitoramento e consulta de cotações de moedas em tempo real, empacotada com **Docker** e acompanhada de scripts em Shell para automação de testes e deploy.
 
@@ -7,9 +7,9 @@ Aplicação web desenvolvida em **Python (Flask)** para monitoramento e consulta
 ## 🚀 Funcionalidades
 
 - **Cotações em Tempo Real:** Consulta automatizada de moedas integrando a [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas):
-  - Dólar Americano / Real Brasileiro (USD-BRL)
-  - Euro / Real Brasileiro (EUR-BRL)
-  - Bitcoin / Real Brasileiro (BTC-BRL)
+  - Dólar Americano / Real Brasileiro (`USD-BRL`)
+  - Euro / Real Brasileiro (`EUR-BRL`)
+  - Bitcoin / Real Brasileiro (`BTC-BRL`)
 - **Dashboard Web:** Interface limpa e intuitiva para visualização imediata dos valores atuais, máximos e mínimos.
 - **Containerização:** Totalmente empacotado via Docker para execução isolada e portabilidade.
 - **Automação DevOps:** Scripts shell para validação de endpoints, testes com formatação JSON e deploy automatizado do container.
@@ -29,7 +29,8 @@ Aplicação web desenvolvida em **Python (Flask)** para monitoramento e consulta
 
 ## 📂 Estrutura do Projeto
 
-`	ext
+```text
+devops-cotacoes/
 ├── app/
 │   ├── __init__.py           # Inicialização e factory da aplicação Flask
 │   ├── routes.py             # Rotas web e lógica de consumo da API externa
@@ -43,7 +44,7 @@ Aplicação web desenvolvida em **Python (Flask)** para monitoramento e consulta
 ├── requirements.txt          # Dependências do projeto Python
 ├── run.py                    # Ponto de entrada do servidor Flask
 └── README.md                 # Documentação do projeto
-`
+```
 
 ---
 
@@ -59,29 +60,29 @@ Aplicação web desenvolvida em **Python (Flask)** para monitoramento e consulta
 ### Opção 1: Executando Localmente (Ambiente Virtual)
 
 1. **Clone o repositório:**
-   `ash
+   ```bash
    git clone https://github.com/igorpaiva26/devops-cotacoes.git
    cd devops-cotacoes
-   `
+   ```
 
 2. **Crie e ative um ambiente virtual:**
-   `ash
+   ```bash
    python -m venv venv
    # No Linux/macOS:
    source venv/bin/activate
    # No Windows (PowerShell):
    .\venv\Scripts\Activate.ps1
-   `
+   ```
 
 3. **Instale as dependências:**
-   `ash
+   ```bash
    pip install -r requirements.txt
-   `
+   ```
 
 4. **Inicie o servidor:**
-   `ash
+   ```bash
    python run.py
-   `
+   ```
 
 5. Acesse no navegador: **[http://localhost:5000](http://localhost:5000)**
 
@@ -90,19 +91,19 @@ Aplicação web desenvolvida em **Python (Flask)** para monitoramento e consulta
 ### Opção 2: Executando via Docker
 
 #### Execução rápida com script de deploy (Linux / WSL / macOS):
-`ash
+```bash
 chmod +x scripts/deploy.sh
 ./scripts/deploy.sh
-`
+```
 
 #### Execução manual com Docker CLI:
-`ash
+```bash
 # 1. Realizar o build da imagem
 docker build -t devops-cotacoes:latest .
 
 # 2. Executar o container na porta 5000
 docker run -d -p 5000:5000 --name devops-cotacoes-app devops-cotacoes:latest
-`
+```
 
 Acesse no navegador: **[http://localhost:5000](http://localhost:5000)**
 
@@ -110,18 +111,18 @@ Acesse no navegador: **[http://localhost:5000](http://localhost:5000)**
 
 ## 🧪 Scripts de Teste e Validação
 
-Dentro do diretório scripts/ há ferramentas úteis para validar o consumo das APIs:
+Dentro do diretório `scripts/` há ferramentas úteis para validar o consumo das APIs:
 
 - **Teste direto:**
-  `ash
+  ```bash
   chmod +x scripts/test-api.sh
   ./scripts/test-api.sh
-  `
-- **Teste com JSON formatado (requer jq):**
-  `ash
+  ```
+- **Teste com JSON formatado (requer `jq`):**
+  ```bash
   chmod +x scripts/test-api-formatado.sh
   ./scripts/test-api-formatado.sh
-  `
+  ```
 
 ---
 
